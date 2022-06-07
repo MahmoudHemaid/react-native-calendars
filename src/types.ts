@@ -85,6 +85,8 @@ export interface Theme {
   todayButtonPosition?: string;
   arrowHeight?: number;
   arrowWidth?: number;
+  availableHoursBlock?: ViewStyle;
+  unavailableHoursBlock?: ViewStyle;
   weekVerticalMargin?: number;
   'stylesheet.calendar.header'?: {
     week: StyleProp<ViewStyle>;

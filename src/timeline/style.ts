@@ -132,11 +132,19 @@ export default function styleConstructor(theme: Theme = {}, calendarHeight: numb
       width: HOURS_SIDEBAR_WIDTH - 16,
       ...theme.timeLabel
     },
+    availableHoursBlock: {
+      position: 'absolute',
+      left: HOURS_SIDEBAR_WIDTH,
+      right: 0,
+      backgroundColor: '#EDF3F4',
+      ...theme.availableHoursBlock
+    },
     unavailableHoursBlock: {
       position: 'absolute',
       left: HOURS_SIDEBAR_WIDTH,
       right: 0,
-      backgroundColor: '#F8F9FA'
+      backgroundColor: '#F8F9FA',
+      ...theme.unavailableHoursBlock
     }
   });
 }

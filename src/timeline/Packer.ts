@@ -13,12 +13,12 @@ interface PopulateOptions {
   rightEdgeSpacing?: number;
 }
 
-export interface UnavailableHours {
+export interface AvailabilityHours {
   start: number;
   end: number;
 }
 
-interface UnavailableHoursOptions {
+interface AvailabilityHoursOptions {
   hourBlockHeight: number;
   dayStart: number;
   dayEnd: number;
@@ -145,18 +145,18 @@ export function populateEvents(_events: Event[], populateOptions: PopulateOption
   return calculatedEvents;
 }
 
-export function buildUnavailableHoursBlocks(
-  unavailableHours: UnavailableHours[] = [],
-  options: UnavailableHoursOptions
+export function buildAvailabilityHoursBlocks(
+  availabilityHours: AvailabilityHours[] = [],
+  options: AvailabilityHoursOptions
 ) {
   const {hourBlockHeight, dayStart = 0, dayEnd = 24} = options || {};
   const totalDayHours = dayEnd - dayStart;
   const totalDayHeight = (dayEnd - dayStart) * hourBlockHeight;
   return (
-    unavailableHours
+    availabilityHours
       .map(hours => {
         if (!inRange(hours.start, 0, 25) || !inRange(hours.end, 0, 25)) {
-          console.error('Calendar Timeline unavailableHours is invalid. Hours should be between 0 and 24');
+          console.error('Calendar Timeline availabilityHours is invalid. Hours should be between 0 and 24');
           return undefined;
         }
 

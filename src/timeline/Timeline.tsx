@@ -6,7 +6,7 @@ import map from 'lodash/map';
 import constants from '../commons/constants';
 import {Theme} from '../types';
 import styleConstructor, {HOURS_SIDEBAR_WIDTH} from './style';
-import {populateEvents, UnavailableHours} from './Packer';
+import {populateEvents, AvailabilityHours} from './Packer';
 import {calcTimeOffset} from './helpers/presenter';
 import TimelineHours, {TimelineHoursProps} from './TimelineHours';
 import EventBlock, {Event, PackedEvent} from './EventBlock';
@@ -94,10 +94,18 @@ export interface TimelineProps {
   /**
    * Range of available hours
    */
-  unavailableHours?: UnavailableHours[];
+  availableHours?: AvailabilityHours[];
   /**
-   * Background color for unavailable hours
+   * Background color for available hours
    */
+  availableHoursColor?: string;
+  /**
+   * Range of unavailable hours
+   */
+  unavailableHours?: AvailabilityHours[];
+  /**
+  * Background color for unavailable hours
+  */
   unavailableHoursColor?: string;
   /**
    * Hour row height
@@ -127,6 +135,8 @@ const Timeline = (props: TimelineProps) => {
     onChangeOffset,
     overlapEventsSpacing,
     rightEdgeSpacing,
+    availableHours,
+    availableHoursColor,
     unavailableHours,
     unavailableHoursColor,
     eventTapped
@@ -212,6 +222,8 @@ const Timeline = (props: TimelineProps) => {
         format24h={format24h}
         hourBlockHeight={hourBlockHeight}
         styles={styles}
+        availableHours={availableHours}
+        availableHoursColor={availableHoursColor}
         unavailableHours={unavailableHours}
         unavailableHoursColor={unavailableHoursColor}
         onBackgroundLongPress={onBackgroundLongPress}

@@ -144,9 +144,9 @@ describe('Timeline Packer utils', () => {
     });
   });
 
-  describe('buildUnavailableHoursBlocks', () => {
+  describe('buildAvailabilityHoursBlocks', () => {
     it('should build unavailable blocks with default options', () => {
-      const blocks = uut.buildUnavailableHoursBlocks(
+      const blocks = uut.buildAvailabilityHoursBlocks(
         [
           {start: 0, end: 9},
           {start: 19, end: 24}
@@ -164,7 +164,7 @@ describe('Timeline Packer utils', () => {
     });
 
     it('should not return blocks for invalid hours', () => {
-      const blocks = uut.buildUnavailableHoursBlocks(
+      const blocks = uut.buildAvailabilityHoursBlocks(
         [
           {start: -2, end: 7},
           {start: 3, end: 7},
@@ -181,7 +181,7 @@ describe('Timeline Packer utils', () => {
     });
 
     it('should handle different start/end day hours', () => {
-      const blocks = uut.buildUnavailableHoursBlocks(
+      const blocks = uut.buildAvailabilityHoursBlocks(
         [
           {start: 0, end: 9},
           {start: 19, end: 24}

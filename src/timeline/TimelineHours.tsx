@@ -1,7 +1,7 @@
 import React, {useCallback, useMemo, useRef} from 'react';
 import {View, Text, TouchableWithoutFeedback, ViewStyle, TextStyle, StyleSheet} from 'react-native';
 import range from 'lodash/range';
-import {buildUnavailableHoursBlocks, UnavailableHours} from './Packer';
+import {buildAvailabilityHoursBlocks, AvailabilityHours} from './Packer';
 import {buildTimeString, calcTimeByPosition} from './helpers/presenter';
 import constants from '../commons/constants';
 
@@ -19,7 +19,9 @@ export interface TimelineHoursProps {
   hourBlockHeight: number;
   onBackgroundLongPress?: (timeString: string, time: NewEventTime) => void;
   onBackgroundLongPressOut?: (timeString: string, time: NewEventTime) => void;
-  unavailableHours?: UnavailableHours[];
+  availableHours?: AvailabilityHours[];
+  availableHoursColor?: string;
+  unavailableHours?: AvailabilityHours[];
   unavailableHoursColor?: string;
   styles: {[key: string]: ViewStyle | TextStyle};
 }
@@ -34,6 +36,8 @@ const TimelineHours = (props: TimelineHoursProps) => {
     end = 24,
     date,
     hourBlockHeight,
+    availableHours,
+    availableHoursColor,
     unavailableHours,
     unavailableHoursColor,
     styles,
@@ -44,7 +48,8 @@ const TimelineHours = (props: TimelineHoursProps) => {
   const lastLongPressEventTime = useRef<NewEventTime>();
   // const offset = this.calendarHeight / (end - start);
   const offset = hourBlockHeight;
-  const unavailableHoursBlocks = buildUnavailableHoursBlocks(unavailableHours, {dayStart: start, dayEnd: end, hourBlockHeight});
+  const availableHoursBlocks = buildAvailabilityHoursBlocks(availableHours, {dayStart: start, dayEnd: end, hourBlockHeight});
+  const unavailableHoursBlocks = buildAvailabilityHoursBlocks(unavailableHours, {dayStart: start, dayEnd: end, hourBlockHeight});
 
   const hours = useMemo(() => {
     return range(start, end + 1).map(i => {
@@ -89,6 +94,15 @@ const TimelineHours = (props: TimelineHoursProps) => {
 
   return (
     <>
+      {availableHoursBlocks.map(block => (
+        <View
+          style={[
+            styles.availableHoursBlock,
+            block,
+            availableHoursColor ? {backgroundColor: availableHoursColor} : undefined
+          ]}
+        ></View>
+      ))}
       <TouchableWithoutFeedback onLongPress={handleBackgroundPress} onPressOut={handlePressOut}>
         <View style={StyleSheet.absoluteFillObject} />
       </TouchableWithoutFeedback>
